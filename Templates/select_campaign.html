@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Campaña</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo de las etiquetas y el select */
+        label {
+            font-size: 1em;
+            color: #004080;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        /* Botón de envío */
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seleccionar Campaña para {{ regional }}</h1>
+        
+        <form method="POST">
+            <label for="campaign">Campaña:</label>
+            <select name="campaign" id="campaign" required>
+                <option value="">Seleccione una campaña</option>
+                {% for campaign in campaigns %}
+                    <option value="{{ campaign }}">{{ campaign }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Confirmar</button>
+        </form>
+    </div>
+</body>
+</html>

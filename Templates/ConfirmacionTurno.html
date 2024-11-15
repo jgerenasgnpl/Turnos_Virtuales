@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Turno</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* Estilo del mensaje */
+        .message {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        /* Botón de regreso al inicio */
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mensaje de confirmación -->
+        <p class="message">
+            ¡Turno solicitado con éxito!<br>
+            <strong>{{ turno.numero_turno_regional }}</strong><br>
+            Te atenderemos pronto.
+        </p>
+
+        <!-- Botón de regreso al inicio -->
+        <a href="{{ url_for('inicio', regional=regional, campaign=campaign) }}" class="button">Volver al Inicio</a>
+    </div>
+</body>
+</html>

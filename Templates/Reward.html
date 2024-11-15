@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruleta de la Fortuna</title>
+    <script src="/static/Winwheel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para el marcador o selector */
+        .marker {
+            position: absolute;
+            top: 10px; /* Ajusta esta posición para centrarlo */
+            left: 240px; /* Ajusta según el tamaño del canvas */
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 40px solid red; /* Color del marcador */
+        }
+
+        /* Círculo en el centro de la rueda para colocar una imagen */
+        .center-circle {
+            position: absolute;
+            top: 210px; /* Ajusta esta posición para centrarlo */
+            left: 220px; /* Ajusta según el tamaño del canvas */
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Imagen dentro del círculo */
+        .center-circle img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Botones */
+        .button {
+            display: inline-block;
+            padding: 12px 18px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Gira la Ruleta de la Fortuna!</h1>
+        <div class="marker"></div> <!-- Marcador en la parte superior de la rueda -->
+        <div class="center-circle">
+            <img src="/static/LogoSystem.png" alt="Imagen Central"> <!-- Coloca aquí tu imagen -->
+        </div>
+        <canvas id="ruletaCanvas" width="500" height="500"></canvas>
+        <br>
+        <button id="girarBtn" class="button" onclick="girar()">Girar</button>
+        <button class="button" onclick="window.location.href='/'">Volver al Inicio</button>
+    </div>
+
+    <script>
+        // Crear la ruleta
+        var ruleta = new Winwheel({
+            'canvasId': 'ruletaCanvas',
+            'numSegments': 8,
+            'segments': [
+                {'fillStyle': '#eae56f', 'text': 'Fin de semana Girardoth'},
+                {'fillStyle': '#89f26e', 'text': 'Olla Arrocera'},
+                {'fillStyle': '#7de6ef', 'text': 'Bono $100.000'},
+                {'fillStyle': '#e7706f', 'text': 'Descuento 5% adicional'},
+                {'fillStyle': '#eae56f', 'text': 'Cafetera'},
+                {'fillStyle': '#89f26e', 'text': 'Bono $100.000 Creeps'},
+                {'fillStyle': '#7de6ef', 'text': 'Olla Arrocera'},
+                {'fillStyle': '#e7706f', 'text': 'Sin premios'}
+            ],
+            'animation': {
+                'type': 'spinToStop',
+                'duration': 5,
+                'spins': 8,
+                'callbackFinished': 'resultadoRuleta'
+            }
+        });
+
+        // Función para girar la ruleta y deshabilitar el botón
+        function girar() {
+            document.getElementById("girarBtn").disabled = true; // Desactiva el botón
+            ruleta.startAnimation();
+        }
+
+        // Mostrar el resultado del giro
+        function resultadoRuleta(segmento) {
+            alert("¡Felicidades! Obtuviste " + segmento.text);
+        }
+    </script>
+</body>
+</html>

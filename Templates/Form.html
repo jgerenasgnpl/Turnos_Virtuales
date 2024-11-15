@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Turno</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 20px; /* Reducido de 30px a 20px */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 85%; /* Reducido ligeramente */
+            max-width: 450px; /* Más pequeño para reducir el ancho */
+            text-align: center;
+        }
+
+        /* Contenedor del logo */
+        .logo {
+            max-width: 150px; /* Reducido de 200px a 150px */
+            width: 150px;
+            margin: 0 auto 10px; /* Reducido el margen inferior */
+        }
+
+        /* Título */
+        h1 {
+            font-size: 1.5em; /* Reducido el tamaño de fuente */
+            color: #004080;
+            margin: 10px 0; /* Reducido el margen superior e inferior */
+        }
+
+        /* Estilo de las etiquetas */
+        label {
+            display: block;
+            margin: 10px 0 3px; /* Reducido el margen */
+            font-weight: bold;
+            color: #004080;
+            font-size: 0.9em; /* Tamaño de fuente reducido */
+        }
+
+        /* Campos de entrada */
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 8px; /* Reducido el padding */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 0.9em; /* Reducido el tamaño de fuente */
+            margin-bottom: 8px; /* Reducido el margen inferior */
+        }
+
+        /* Estilo del selector desplegable */
+        select {
+            appearance: none;
+            background-color: #e6f2ff;
+            color: #004080;
+            cursor: pointer;
+        }
+
+        /* Botón de envío */
+        input[type="submit"],
+        .button {
+            display: inline-block;
+            padding: 10px 16px; /* Reducido el padding */
+            font-size: 0.9em; /* Reducido el tamaño de fuente */
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px; /* Reducido el margen superior */
+            cursor: pointer;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efecto hover en el botón */
+        input[type="submit"]:hover,
+        .button:hover {
+            background-color: #003366;
+        }
+
+        /* Estilo para el enlace */
+        .link {
+            display: block;
+            margin-top: 10px; /* Reducido el margen superior */
+            color: #004080;
+            text-decoration: none;
+            font-size: 0.8em; /* Tamaño de fuente reducido */
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo de la empresa -->
+        <img src="{{ url_for('static', filename='Imagenes/LogoSystem.png') }}" alt="Logo" class="logo">
+
+        <!-- Título principal -->
+        <h1>Solicitar Turno</h1>
+
+        <!-- Formulario -->
+        <form action="{{ url_for('solicitar_turno', regional=regional, campaign=campaign) }}" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        
+            <label for="cedula">Cedula:</label>
+            <input type="text" id="cedula" name="cedula" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
+        
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="motivo">Motivo Consulta:</label>
+            <select id="motivo" name="motivo" required>
+                <option value="">Seleccione una opción</option>
+                <option value="consulta_deuda">Consulta Deuda</option>
+                <option value="paz_y_salvo">Paz y Salvo</option>
+                <option value="acuerdo_pago">Acuerdo de pago</option>
+                <option value="pagar">Pagar</option>
+            </select>
+        
+            <input type="submit" value="Solicitar Turno">
+        </form>
+
+        <!-- Enlace a Gestión de Turnos -->
+        <a href="{{ url_for('gestionar_turnos_especifico', regional=regional, campaign=campaign) }}" class="link">Ir a la Gestión de Turnos</a>
+    </div>
+</body>
+</html>

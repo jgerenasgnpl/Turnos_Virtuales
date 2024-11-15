@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Turnos Pendientes</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        /* Lista de turnos */
+        ul {
+            list-style-type: none; /* Quita el marcador de lista */
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        /* Elemento de la lista */
+        li {
+            font-size: 1em;
+            font-weight: bold;
+            color: #004080;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Enlace de atender */
+        a {
+            color: #004080;
+            background-color: #e6f2ff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #d0e4ff;
+        }
+
+        /* Botón de regreso al inicio */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Turnos Pendientes</h1>
+        <ul>
+            {% for turno in turnos %}
+                <li>{{ turno.nombre }} - {{ turno.telefono }} - {{turno.motivo}}
+                    <a href="{{ url_for('atender_turno', id=turno.id, regional=regional, campaign=campaign) }}">Atender</a>
+                </li>
+            {% else %}
+                <li>No hay turnos pendientes</li>
+            {% endfor %}
+        </ul>
+        
+        <!-- Botón para volver al inicio -->
+        <button class="button" onclick="location.href='{{ url_for('inicio', regional=regional, campaign=campaign) }}'">Volver al Inicio</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Turnos Pendientes</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        /* Tabla de turnos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Espacio debajo de la tabla */
+        }
+        th, td {
+            border: 2px solid gray;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #004080;
+            color: white;
+        }
+        td {
+            background-color: #e6f2ff;
+        }
+
+        /* Botón de regreso al inicio */
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Listado de Turnos Pendientes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID del Turno</th>
+                    <th>Nombre de la Persona</th>
+                    <th>Fecha y Hora de Solicitud</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turno in turnos %}
+                <tr>
+                    <td>{{ turno.numero_turno_regional }}</td>
+                    <td>{{ turno.nombre }}</td>
+                    <td>
+                        {% if turno.fecha_creacion %}
+                            {{ turno.fecha_creacion.strftime('%Y-%m-%d %H:%M:%S') }}
+                        {% else %}
+                            Sin fecha
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="button" onclick="window.location.href='{{ url_for('inicio', regional=regional, campaign=campaign) }}'">Volver al Inicio</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Atender Turno para {{ turno.nombre }}</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #b3d9ff; /* Fondo azul claro */
+            color: #004080; /* Texto en un tono azul oscuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        /* Campos y etiquetas del formulario */
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #004080;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        /* Botones */
+        button {
+            display: inline-block;
+            padding: 12px 18px;
+            font-size: 1em;
+            color: white;
+            background-color: #004080;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+
+        /* Premio */
+        .premio {
+            font-size: 1.2em;
+            color: #004080;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Atender Turno para {{ turno.nombre }}</h1>
+        <form method="POST">
+            <!-- Campos del formulario -->
+            <label for="tipo_gestion">Tipo de Gestión:</label>
+            <select id="tipo_gestion" name="tipo_gestion" required>
+                <option value="">Seleccione una opción</option>
+                <option value="acuerdo de pago">Acuerdo de Pago</option>
+                <option value="validación de deuda">Validación de Deuda</option>
+                <option value="acuerdo y pago de deuda">Acuerdo y Pago de Deuda</option>
+                <option value="reclamacion">Reclamación</option>
+            </select>
+
+            <label for="pago_cuotas">Pago:</label>
+            <select id="pago_cuotas" name="pago_cuotas">
+                <option value="1 cuota">1 Cuota</option>
+                <option value="varias cuotas">Varias Cuotas</option>
+            </select>
+
+            <label for="valor_acuerdo">Valor de Acuerdo:</label>
+            <input type="number" id="valor_acuerdo" name="valor_acuerdo">
+
+            <label for="observacion">Observación:</label>
+            <textarea id="observacion" name="observacion" required></textarea>
+
+            <label for="fecha_gestion">Fecha de Gestión:</label>
+            <input type="text" id="fecha_gestion" name="fecha_gestion">
+
+            <button type="submit">Guardar Cambios</button>
+            <button class="button" onclick="window.location.href='{{ url_for('inicio', regional=turno.regional, campaign=turno.campaign) }}'">Volver al Inicio</button>
+        </form>
+
+                {% if premio is defined %}
+                    <div class="premio">
+                        <h2>Premio de la Rueda de la Fortuna: {{ premio }}</h2>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="alert {{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+</body>
+</html>

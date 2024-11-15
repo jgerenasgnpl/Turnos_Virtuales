@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecciona Regional</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Calibri', sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            margin-top: 20px;
+        }
+
+        .header img {
+            width: 200px;  /* Ajusta el tamaño del logo */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #004080;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .city {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .city:hover {
+            transform: scale(1.1);
+        }
+
+        .city img {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .city h3 {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #004080;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://i.ibb.co/JFFVpCH/Logo-System.png" alt="Logo de Systemgroup">
+        <h2>Selecciona Ciudad</h2>
+    </div>
+
+    <div class="container">
+        <!-- Bogota -->
+        <div class="city">
+            <a href="/inicio/Bogota">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Bogot%C3%A1.svg" alt="Bandera de Bogotá">
+                <h3>Bogotá</h3>
+            </a>
+        </div>
+        
+        <!-- Cali -->
+        <div class="city">
+            <a href="/inicio/Cali">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Cali_%28Valle_del_Cauca%29.svg" alt="Bandera de Cali">
+                <h3>Cali</h3>
+            </a>
+        </div>
+        
+        <!-- Barranquilla -->
+        <div class="city">
+            <a href="/inicio/Barranquilla">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_Barranquilla.svg" alt="Bandera de Barranquilla">
+                <h3>Barranquilla</h3>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

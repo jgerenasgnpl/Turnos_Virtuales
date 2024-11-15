@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SystemTurno Digital</title>
+    <title>SystemTurno Digital - Tragamonedas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,7 +21,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-            width: 400px;
+            width: 500px;
         }
         h1 {
             color: #3a7ebf;
@@ -47,30 +47,31 @@
             border-radius: 10px;
         }
         .slot {
-            width: 100px;
-            height: 50px;
-            font-size: 1.2rem;
+            width: 120px;
+            height: 80px;
+            font-size: 2rem;
             text-align: center;
-            line-height: 50px;
+            line-height: 80px;
             border: 2px solid #3a7ebf;
             border-radius: 5px;
             background-color: #1e73be;
             color: white;
-            transition: transform 0.1s ease; /* Añade un efecto de "rebote" al girar */
+            transition: transform 0.1s ease;
         }
         .controls {
             margin-top: 20px;
         }
         .button {
             font-size: 1rem;
-            padding: 10px 20px;
+            padding: 10px 0;
+            width: 200px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            width: 140px;
             color: white;
             transition: background-color 0.3s ease;
             margin: 5px;
+            display: inline-block;
         }
         .button-blue {
             background-color: #1e73be;
@@ -78,15 +79,20 @@
         .button-green {
             background-color: #28a745;
         }
+        .button-disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
         .button-blue:hover {
             background-color: #155a8a;
         }
         .button-green:hover {
             background-color: #218838;
         }
-        .button-disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #3a7ebf;
         }
     </style>
 </head>
@@ -94,7 +100,7 @@
 
 <div class="container">
     <h1>¡SystemTurno Digital!</h1>
-    <p>Gestión de turnos fácil y rápida</p>
+    <p>Juega y gana un descuento adicional</p>
     <img src="{{ url_for('static', filename='imagenes/LogoSystem.png') }}" alt="SystemGroup Logo" class="logo">
     
     <div class="slot-machine" id="slotMachine">
@@ -107,18 +113,21 @@
         <button class="button button-blue" id="spinButton" onclick="spin()">Girar</button>
         <button class="button button-green" id="backButton" onclick="window.location.href='{{ url_for('inicio', regional=regional, campaign=campaign) }}'">Volver al Inicio</button>
     </div>
+    <div class="message" id="message"></div>
 </div>
 
 <script>
-    // Define los símbolos empresariales
+    // Definir los símbolos empresariales
     const symbols = ["💼", "📈", "🏆"];
     
     function spin() {
-        // Referencia a los slots y el botón de giro
         const slots = document.querySelectorAll('.slot');
         const spinButton = document.getElementById("spinButton");
-        const backButton = document.getElementById("backButton");
-        
+        const message = document.getElementById("message");
+
+        // Restablecer el mensaje
+        message.textContent = "";
+
         // Animación de giro
         let spinCount = 0;
         const spinInterval = setInterval(() => {
@@ -132,7 +141,14 @@
                 clearInterval(spinInterval);
                 spinButton.disabled = true;
                 spinButton.classList.add("button-disabled");
-                backButton.classList.add("button-green-disabled");
+
+                // Verificar si todos los slots son iguales
+                const slotValues = Array.from(slots).map(slot => slot.textContent);
+                if (slotValues[0] === slotValues[1] && slotValues[1] === slotValues[2]) {
+                    message.textContent = "¡Felicidades! Has ganado un 3% de descuento adicional 🎉";
+                } else {
+                    message.textContent = "¡Lastimosamente no ganaste, Gracias por participar y pagar tu deuda!";
+                }
             }
         }, 100); // Intervalo de tiempo entre cada cambio de símbolo
     }

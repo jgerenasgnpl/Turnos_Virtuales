@@ -56,6 +56,7 @@
             border-radius: 5px;
             background-color: #1e73be;
             color: white;
+            transition: transform 0.1s ease; /* Añade un efecto de "rebote" al girar */
         }
         .controls {
             margin-top: 20px;
@@ -83,6 +84,10 @@
         .button-green:hover {
             background-color: #218838;
         }
+        .button-disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -93,29 +98,43 @@
     <img src="{{ url_for('static', filename='imagenes/LogoSystem.png') }}" alt="SystemGroup Logo" class="logo">
     
     <div class="slot-machine" id="slotMachine">
-        <div class="slot">{{ premio }}</div>
-        <div class="slot">{{ premio }}</div>
-        <div class="slot">{{ premio }}</div>
+        <div class="slot" id="slot1">💼</div>
+        <div class="slot" id="slot2">📈</div>
+        <div class="slot" id="slot3">🏆</div>
     </div>
     
     <div class="controls">
         <button class="button button-blue" id="spinButton" onclick="spin()">Girar</button>
-        <button class="button button-green" onclick="window.location.href='{{ url_for('inicio', regional=regional, campaign=campaign) }}'">Volver al Inicio</button>
+        <button class="button button-green" id="backButton" onclick="window.location.href='{{ url_for('inicio', regional=regional, campaign=campaign) }}'">Volver al Inicio</button>
     </div>
 </div>
 
 <script>
-    // Definir los símbolos empresariales
-    const symbols = ["💼", "📈", "{{ premio }}"];
-
+    // Define los símbolos empresariales
+    const symbols = ["💼", "📈", "🏆"];
+    
     function spin() {
+        // Referencia a los slots y el botón de giro
         const slots = document.querySelectorAll('.slot');
-        slots.forEach(slot => {
-            slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        });
-
-        // Deshabilitar el botón después de un giro
-        document.getElementById("spinButton").disabled = true;
+        const spinButton = document.getElementById("spinButton");
+        const backButton = document.getElementById("backButton");
+        
+        // Animación de giro
+        let spinCount = 0;
+        const spinInterval = setInterval(() => {
+            slots.forEach(slot => {
+                slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                slot.style.transform = "scale(1.2)"; // Efecto de agrandamiento
+                setTimeout(() => slot.style.transform = "scale(1)", 50); // Vuelve al tamaño normal
+            });
+            spinCount++;
+            if (spinCount > 20) { // Número de vueltas antes de detenerse
+                clearInterval(spinInterval);
+                spinButton.disabled = true;
+                spinButton.classList.add("button-disabled");
+                backButton.classList.add("button-green-disabled");
+            }
+        }, 100); // Intervalo de tiempo entre cada cambio de símbolo
     }
 </script>
 

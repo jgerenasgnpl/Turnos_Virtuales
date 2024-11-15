@@ -1,1 +1,1 @@
-web: gunicorn Turnos_Virtuales:app
+web: gunicorn App:app

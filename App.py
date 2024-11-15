@@ -9,7 +9,7 @@ import os
 # Zona horaria de Colombia
 colombia_tz = timezone.utc
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='Templates')
 app.secret_key = os.urandom(24)  # Configura una clave secreta para la sesión
 app.config['SECRET_KEY'] = 'Alemania2024*'
 app.config['SQLALCHEMY_DATABASE_URI'] = (

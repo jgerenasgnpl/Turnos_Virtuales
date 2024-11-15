@@ -1,1 +1,4 @@
 unixodbc
+unixodbc-dev
+deb [arch=amd64] https://packages.microsoft.com/repos/msodbcsql17/debian stable main
+msodbcsql17
